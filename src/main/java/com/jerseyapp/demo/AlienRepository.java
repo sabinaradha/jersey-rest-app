@@ -36,7 +36,7 @@ public class AlienRepository {
 	}
 	
 	public List<Alien> getAliens(){
-		List<Alien> aliens = new ArrayList<>();
+		List<Alien> aliens = new ArrayList();
 		String sql = "select * from alien";
 		try {
 			Statement st = con.createStatement();
@@ -86,8 +86,24 @@ public class AlienRepository {
 			st.executeUpdate();
 		
 		} catch (SQLException e) {
+			
 			System.out.println(e);
-		}		
+		 }
+			
+		}
+		
+		public void update(Alien a1) {
+			String sql ="update alien set name=?, points=? where id = ?";
+			try {
+				PreparedStatement st = con.prepareStatement(sql);
+				st.setInt(3,a1.getId());
+				st.setString(1,a1.getName());
+				st.setInt(2,a1.getPoints());
+				st.executeUpdate();
+			
+			} catch (SQLException e) {
+				System.out.println(e);
+			}			
 	}
 
 }
